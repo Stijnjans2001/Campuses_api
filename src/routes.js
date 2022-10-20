@@ -2,6 +2,7 @@ const express = require('express');
 const { model } = require('mongoose');
 const router = express.Router();
 const Campus = require('./models/campus');
+const Docent = require('./models/docent');
 
 router.get('/', (req, res) => {
     console.log('/ route called');
@@ -108,6 +109,16 @@ router.delete('/campus/delete/:id', async(req, res) => {
     console.log('/campus/delete/:id route called');
     try {
         res.json(await Campus.findByIdAndDelete(req.params.id, { $set: req.body }));
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/docent', async(req, res) => {
+    console.log('/docent route called');
+    try {
+        res.json(await Docent.find());
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
