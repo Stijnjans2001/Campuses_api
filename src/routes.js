@@ -62,6 +62,13 @@ router.get('/', (req, res) => {
 
         +
         '<hr/>'
+
+        +
+        '<h2>/docent</h2>' +
+        'Return all docenten in the database using .find()'
+
+        +
+        '<hr/>'
     );
 });
 
@@ -118,7 +125,7 @@ router.delete('/campus/delete/:id', async(req, res) => {
 router.get('/docent', async(req, res) => {
     console.log('/docent route called');
     try {
-        res.json(await Docent.find());
+        res.json(await Docent.find().populate('campussen').sort('voornaam'));
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
